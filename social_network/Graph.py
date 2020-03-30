@@ -3,6 +3,15 @@ class Graph:
         self.number_of_nodes = 0
         self.nodes = []
 
+    def add_node(self, node):
+        self.nodes += [node]
+        self.number_of_nodes += 1
+
+    def add_edge(self, first_index, second_index):
+        if 0 < first_index < self.number_of_nodes and 0 < second_index < self.number_of_nodes:
+            self.nodes[first_index].neighbours += [second_index]
+            self.nodes[second_index].neighbours += [first_index]
+
     def get_shortest_path(self, starting_index, target_index):
         """
         This function is used in order to get the shortest path between the starting_node and the target_node inside
@@ -39,7 +48,7 @@ class Graph:
         # if I finished visiting the starting node's cluster and I didn't find the target inside it,
         # it means that there is no possible path between the starting node and the target node
         if not self.nodes[target_index].visited:
-            return 0, []
+            return -1
         else:
             # if the target was visited, I will backtrack using the "parent" values
             current_node_index = target_index

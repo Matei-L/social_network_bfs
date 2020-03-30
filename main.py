@@ -16,18 +16,17 @@ Q&A:
     until it finds the target of finishes its queue. It is also fairly fast in O(n + m) where n is the number of nodes 
     and m the number of edges. 
 3.  Please enumerate the test cases you considered and explain their relevance.
-    - "complete" contains a complete social_network with 9 nodes. Here any search between A and B with A =/= B should 
-    return (2, [A, B]).
-    - "isolated" contains a test case which has as target an isolated node. The result should be: (0, []).
-    - "A_and_B_are_the_same" contains a test case where A == B. The result should be: (1, [2]).
+    - "complete" contains a complete social_network with 9 nodes.
+    - "isolated" contains a test case which has as target an isolated node.
+    - "A_and_B_are_the_same" contains a test case where A == B.
     - "multiple_paths" contains a random social_network with 9 nodes. There are multiple paths between A and B and also multiple 
-    solutions. The result should be (4, [2, 3, 7, 9]).
+    solutions.
 """
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         file_name = sys.argv[1]
-        graph, starting_index, target_index = reader.read_network(file_name)
-        print(graph.get_shortest_path(starting_index, target_index))
+        expected_response, graph, starting_index, target_index = reader.read_test_file(file_name)
+        print(f'{expected_response} = {graph.get_shortest_path(starting_index, target_index)}')
     else:
         print("Please provide the name of the file having the social_network's structure as the first parameter.")
